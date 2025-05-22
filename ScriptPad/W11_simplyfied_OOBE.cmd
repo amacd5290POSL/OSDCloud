@@ -73,13 +73,11 @@ Write-Host -ForegroundColor Green "Define Computername:"
 $Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
 $TargetComputername = $Serial
 $MachineType = (Get-Computerinfo).CsPCSystemType
-
 $AssignedComputerName = "PLEX$TargetComputername"
 
 if ($MachineType = "Mobile")
 {
 $AssignedComputerName = "LPLEX$TargetComputername"	
-	
 }else{
 	$AssignedComputerName = "WPLEX$TargetComputername"
 }
@@ -97,7 +95,6 @@ $AutopilotOOBEJson = @"
                },
     "Hidden":  [
                    "AddToGroup",
-                   "AssignedUser",
                    "PostAction",
                    "GroupTag",
                    "Assign"
@@ -105,7 +102,7 @@ $AutopilotOOBEJson = @"
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://google.com/",
-    "Title":  "Autopilot Manual Register"
+    "Title":  "Plexus - Autopilot Manual Register"
 }
 "@
 
@@ -115,24 +112,32 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
 $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
 
 #================================================
-#  [PostOS] OOBE CMD Command Line
+#  [PostOS] AutopilotOOBE CMD Command Line
 #================================================
-Write-Host -ForegroundColor Green "Downloading and creating script for OOBE phase"
-Invoke-RestMethod https://check-autopilotprereq.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\autopilotprereq.ps1' -Encoding ascii -Force
-Invoke-RestMethod https://start-autopilotoobe.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\autopilotoobe.ps1' -Encoding ascii -Force
-
+Write-Host -ForegroundColor Green "Create C:\Windows\System32\OOBE.cmd"
 $OOBECMD = @'
-@echo off
-# Execute OOBE Tasks
-start /wait powershell.exe -NoL -ExecutionPolicy Bypass -F C:\Windows\Setup\Scripts\autopilotprereq.ps1
-start /wait powershell.exe -NoL -ExecutionPolicy Bypass -F C:\Windows\Setup\Scripts\autopilotoobe.ps1
-
-# Below a PS session for debug and testing in system context, # when not needed 
-# start /wait powershell.exe -NoL -ExecutionPolicy Bypass
-
-exit 
+PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
+Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
+Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
+Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/AP-Prereq.ps1
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/Start-AutopilotOOBE.ps1
+Start /Wait PowerShell -NoL -C Start-OOBEDeploy
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/TPM.ps1
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/CleanUp.ps1
+Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
-$OOBECMD | Out-File -FilePath 'C:\Windows\Setup\scripts\oobe.cmd' -Encoding ascii -Force
+$OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBE.cmd' -Encoding ascii -Force
+
+#================================================
+#  [PostOS] SetupComplete CMD Command Line
+#================================================
+Write-Host -ForegroundColor Green "Create C:\Windows\Setup\Scripts\SetupComplete.cmd"
+$SetupCompleteCMD = @'
+powershell.exe -Command Set-ExecutionPolicy RemoteSigned -Force
+powershell.exe -Command "& {IEX (IRM https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/oobetasks.ps1)}"
+'@
+$SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
 
 #=======================================================================
 #   Restart-Computer
