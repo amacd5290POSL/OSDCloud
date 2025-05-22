@@ -1,16 +1,16 @@
 #================================================
 #   [PreOS] Update Module
 #================================================
-Write-Host -ForegroundColor Green "Updating OSD PowerShell Module"
+Write-Host -ForegroundColor Green "Installing OSD PowerShell Module"
 Install-Module OSD -Force
 
-Write-Host  -ForegroundColor Green "Importing OSD PowerShell Module"
+Write-Host -ForegroundColor Green "Importing OSD PowerShell Module"
 Import-Module OSD -Force   
 
 #=======================================================================
 #   Start-OSDCloud
 #=======================================================================
-Start-OSDCloudGUI
+Start-OSDCloudGUI -BrandName 'Plexus (Alexs Installer)'
 
 #================================================
 #  [PostOS] OOBEDeploy Configuration
@@ -69,7 +69,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #================================================
 #  [PostOS] AutopilotOOBE Configuration Staging
 #================================================
-Write-Host -ForegroundColor Green "Define Computername:"
+Write-Host -ForegroundColor Green "Creating Autopilot script dynamically."
 $Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
 $TargetComputername = $Serial
 $MachineType = (Get-Computerinfo).CsPCSystemType
@@ -94,7 +94,6 @@ $AutopilotOOBEJson = @"
                    "IsPresent":  true
                },
     "Hidden":  [
-                   "AddToGroup",
                    "PostAction",
                    "GroupTag",
                    "Assign"
