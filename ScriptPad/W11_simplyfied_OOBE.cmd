@@ -127,7 +127,7 @@ Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.
 Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/CleanUp.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
-$OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBE.cmd' -Encoding ascii -Force
+$OOBECMD | Out-File -FilePath 'C:\Windows\Autopilot.cmd' -Encoding ascii -Force
 
 
 #=======================================================================
