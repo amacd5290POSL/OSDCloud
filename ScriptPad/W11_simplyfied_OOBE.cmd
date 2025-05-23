@@ -126,6 +126,6 @@ $OOBECMD | Out-File -FilePath 'C:\Windows\Autopilot.cmd' -Encoding ascii -Force
 #=======================================================================
 #   Restart-Computer
 #=======================================================================
-Write-Host  -ForegroundColor Green "Restarting in 20 seconds!"
+Write-Host  -ForegroundColor Green "Restarting in 20 seconds!  Boot into OOBE > Shift + F10 > Autopilot"
 Start-Sleep -Seconds 20
 wpeutil reboot
