@@ -18,9 +18,6 @@ Start-OSDCloudGUI -BrandName 'Alex - Plexus'
 Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.OOBEDeploy.json"
 $OOBEDeployJson = @'
 {
-    "AddNetFX3":  {
-                      "IsPresent":  true
-                  },
     "Autopilot":  {
                       "IsPresent":  true
                   },
