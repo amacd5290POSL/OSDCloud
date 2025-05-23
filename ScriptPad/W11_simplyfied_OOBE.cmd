@@ -4,11 +4,11 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
 
-Write-Host -ForegroundColor Green "Installing OSD PowerShell Module"
-Install-Module OSD -Force
+#Write-Host -ForegroundColor Green "Installing OSD PowerShell Module"
+#Install-Module OSD -Force
 
-Write-Host -ForegroundColor Green "Install AutopilotOOBE Module"
-Install-Module AutopilotOOBE -Force
+#Write-Host -ForegroundColor Green "Install AutopilotOOBE Module"
+#Install-Module AutopilotOOBE -Force
 
 Write-Host -ForegroundColor Green "Importing OSD PowerShell Module"
 Import-Module OSD -Force   
