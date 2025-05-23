@@ -12,6 +12,7 @@ Import-Module OSD -Force
 #=======================================================================
 $OSDModuleResource.StartOSDCloudGUI.BrandName = 'Alex - Plexus'
 $OSDModuleResource.StartOSDCloudGUI.restartComputer = $false
+$OSDModuleResource.StartOSDCloudGUI.ClearDiskConfirm = $false
 Start-OSDCloudGUI
 
 #================================================
