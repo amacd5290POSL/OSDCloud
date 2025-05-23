@@ -10,7 +10,9 @@ Import-Module OSD -Force
 #=======================================================================
 #   Start-OSDCloud
 #=======================================================================
-Start-OSDCloudGUI -BrandName 'Alex - Plexus' -RestartComputer $false
+$OSDModuleResource.StartOSDCloudGUI.BrandName = 'Alex - Plexus'
+$OSDModuleResource.StartOSDCloudGUI.restartComputer $false
+Start-OSDCloudGUI
 
 #================================================
 #  [PostOS] OOBEDeploy Configuration
