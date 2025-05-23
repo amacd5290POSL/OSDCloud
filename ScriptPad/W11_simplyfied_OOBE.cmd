@@ -11,7 +11,7 @@ Import-Module OSD -Force
 #   Start-OSDCloud
 #=======================================================================
 $OSDModuleResource.StartOSDCloudGUI.BrandName = 'Alex - Plexus'
-$OSDModuleResource.StartOSDCloudGUI.restartComputer $false
+$OSDModuleResource.StartOSDCloudGUI.restartComputer = $false
 Start-OSDCloudGUI
 
 #================================================
