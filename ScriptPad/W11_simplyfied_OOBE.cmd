@@ -22,7 +22,7 @@ Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.OOBED
 $OOBEDeployJson = @'
 {
     "Autopilot":  {
-                      "IsPresent":  true
+                      "IsPresent":  false
                   },
     "RemoveAppx":  [
                     "MicrosoftTeams",
@@ -113,12 +113,13 @@ $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.Autopi
 #================================================
 #  [PostOS] AutopilotOOBE CMD Command Line
 #================================================
-Write-Host -ForegroundColor Green "Create C:\Windows\System32\OOBE.cmd"
+Write-Host -ForegroundColor Green "Create C:\Windows\Autopilot.cmd"
 $OOBECMD = @'
 PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
 Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
 Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
 Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/Start-AutopilotOOBE.ps1
 Start /Wait PowerShell -NoL -C Start-OOBEDeploy
 Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/amacd5290POSL/OSDCloud/refs/heads/main/CleanUp.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
