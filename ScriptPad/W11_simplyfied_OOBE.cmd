@@ -7,12 +7,14 @@
 Write-Host -ForegroundColor Green "Importing OSD PowerShell Module"
 Import-Module OSD -Force   
 
+
 #=======================================================================
 #   Start-OSDCloud
 #=======================================================================
 $OSDModuleResource.StartOSDCloudGUI.BrandName = 'Alex - Plexus'
 $OSDModuleResource.StartOSDCloudGUI.restartComputer = $false
 $OSDModuleResource.StartOSDCloudGUI.ClearDiskConfirm = $false
+$OSDModuleResource.OSDCloud.Values.Language = 'en-gb'
 Start-OSDCloudGUI
 
 #================================================
