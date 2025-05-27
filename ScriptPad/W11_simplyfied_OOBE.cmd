@@ -15,6 +15,7 @@ $OSDModuleResource.StartOSDCloudGUI.BrandName = 'Alex - Plexus'
 $OSDModuleResource.StartOSDCloudGUI.restartComputer = $false
 $OSDModuleResource.StartOSDCloudGUI.ClearDiskConfirm = $false
 $OSDModuleResource.OSDCloud.Values.Language = 'en-gb'
+$OSDModuleResource.OSDCloud.Default.Language = 'en-gb'
 $OSDModuleResource.StartOSDCloudGUI.WindowsUpdateDrivers = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsUpdate = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsDefenderUpdate = $true
