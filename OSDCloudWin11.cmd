@@ -19,6 +19,7 @@ $OSDModuleResource.OSDCloud.Default.Language = 'en-gb'
 $OSDModuleResource.StartOSDCloudGUI.WindowsUpdateDrivers = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsUpdate = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsDefenderUpdate = $true
+$OSDModuleResource.OSDCloud.Default.Edition = "Pro"
 Start-OSDCloudGUI
 
 #================================================
