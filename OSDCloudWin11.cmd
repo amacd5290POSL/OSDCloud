@@ -81,7 +81,7 @@ $TargetComputername = $Serial
 $MachineType = (Get-Computerinfo).CsPCSystemType
 $AssignedComputerName = "PLEX$TargetComputername"
 
-if ($MachineType = "Mobile")
+if ($MachineType -eq "Mobile")
 {
 $AssignedComputerName = "LPLEX$TargetComputername"	
 }else{
