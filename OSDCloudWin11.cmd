@@ -20,6 +20,7 @@ $OSDModuleResource.StartOSDCloudGUI.WindowsUpdateDrivers = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsUpdate = $true
 $OSDModuleResource.StartOSDCloudGUI.WindowsDefenderUpdate = $true
 $OSDModuleResource.OSDCloud.Default.Edition = "Pro"
+$OSDModuleResource.OSDCloud.Default.Activation = "Retail"
 Start-OSDCloudGUI
 
 #================================================
